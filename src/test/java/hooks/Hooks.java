@@ -27,4 +27,9 @@ public class Hooks {
         // Uncomment this only if you want to close browser after every scenario
         // DriverFactory.quitDriver();
     }
+    
+    @io.cucumber.java.AfterAll
+    public static void closeDriverOnceAllTestsFinish() {
+        DriverFactory.quitDriver(); // Clean up once all scenarios are done
+    }
 }
