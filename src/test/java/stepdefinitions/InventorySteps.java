@@ -13,6 +13,7 @@ public class InventorySteps {
 
     WebDriver driver = DriverFactory.getDriver();
     InventoryPage inventoryPage;
+    
 
     @Then("user should see the inventory page with product list")
     public void user_should_see_product_list() {
