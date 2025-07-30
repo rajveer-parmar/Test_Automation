@@ -31,5 +31,6 @@ public class Hooks {
     @io.cucumber.java.AfterAll
     public static void closeDriverOnceAllTestsFinish() {
         DriverFactory.quitDriver(); // Clean up once all scenarios are done
+        
     }
 }
