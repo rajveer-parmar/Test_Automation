@@ -2,9 +2,10 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ main ]
+    branches: [ HEAD ]
   pull_request:
-    branches: [ main ]
+    branches: [ HEAD ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -38,3 +39,10 @@ jobs:
         with:
           name: Test-Reports
           path: target/cucumber-reports/
+
+      - name: Deploy Cucumber HTML to GitHub Pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/cucumber-reports
