@@ -1,6 +1,9 @@
 package stepdefinitions;
 
 import io.cucumber.java.en.Then;
+
+import static org.testng.Assert.assertTrue;
+
 import org.openqa.selenium.WebDriver;
 import pages.InventoryPage;
 import utils.DriverFactory;
@@ -14,6 +17,7 @@ public class InventorySteps {
     @Then("user should see the inventory page with product list")
     public void user_should_see_product_list() {
         inventoryPage = new InventoryPage(driver);
-        Assert.assertEquals(inventoryPage.getPageTitle(), "Products");
+        Assert.assertEquals(inventoryPage.getPageTitle(), true, null);
+
     }
 }

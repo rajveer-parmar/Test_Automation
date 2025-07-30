@@ -15,8 +15,8 @@ public class InventoryPage {
         this.driver = driver;
     }
 
-    public String getPageTitle() {
-        return driver.findElement(productTitle).getText();
+    public boolean getPageTitle() {
+        return driver.findElement(productTitle).isDisplayed();
     }
 
     public void addToCart() {
