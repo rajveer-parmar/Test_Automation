@@ -1,0 +1,50 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+  branches:
+    include:
+      - master
+
+pr:
+  branches:
+    include:
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  MAVEN_CACHE_FOLDER: $(HOME)/.m2/repository
+
+steps:
+
+  - task: Checkout@1
+    displayName: 'Checkout Repository'
+
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '17'
+      jdkArchitecture: 'x64'
+      jdkSourceOption: 'PreInstalled'
+    displayName: 'Set up JDK 17'
+
+  - task: Cache@2
+    inputs:
+      key: 'maven | "$(Agent.OS)" | **/pom.xml'
+      restoreKeys: |
+        maven | "$(Agent.OS)"
+      path: $(MAVEN_CACHE_FOLDER)
+    displayName: 'Cache Maven packages'
+
+  - script: mvn clean test
+    displayName: 'Build and Test with Maven'
+
+  - task: PublishPipelineArtifact@1
+    condition: always()
+    inputs:
+      targetPath: 'target/cucumber-reports'
+      artifactName: 'Test-Reports'
+    displayName: 'Archive Test Reports'
